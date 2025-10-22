@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Gerador de Plano de Aula" />
+  <meta name="author" content="Tainara Martins" />
+  <meta name="keywords" content="plano de aula, educação, ensino, professor, aulas, simplicidade" />
+  <meta name="robots" content="index, follow" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="Content-Language" content="pt-BR" />
+  <title>Gerador de Plano de Aula</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
+
+  <!-- ===== ESTILOS ADICIONAIS (fundo interativo + vidro) ===== -->
+  <style>
+    :root{
+      /* pode ajustar as cores do pano de fundo aqui */
+      --bg0:#070742;
+      --bg1:#053b81;   /* lilás/roxo */
+      --bg2:#04272e;   /* azul */
+      --bg3:#5b65f0;   /* dourado */
+      --glass-bg: rgba(26, 11, 80, 0.06);
+      --glass-bd: rgba(6, 4, 24, 0.18);
+    }
+
+    html,body{height:100%}
+    body{margin:0; background: var(--bg0); overflow-x:hidden}
+
+    /* Camadas do fundo */
+    .bg-gradient{
+      position:fixed; inset:0; z-index:-3; pointer-events:none;
+      background:
+        radial-gradient(1200px 800px at 10% 10%, var(--bg1) 0%, transparent 60%),
+        radial-gradient(1000px 600px at 90% 30%, var(--bg2) 0%, transparent 60%),
+        radial-gradient(900px 700px at 30% 90%, var(--bg3) 0%, transparent 60%),
+        var(--bg0);
+      filter: saturate(120%);
+    }
+    /* “Blob” que segue o cursor */
+    .blob{
+      position:fixed; width:42vmax; aspect-ratio:1/1; border-radius:50%;
+      z-index:-2; pointer-events:none; translate:-50% -50%;
+      background: radial-gradient(circle at 30% 30%, #ffffffa8, #ffffff20 60%, transparent 70%);
+      filter: blur(50px) saturate(150%);
+      mix-blend-mode: screen;
+      will-change: transform;
+    }
+
+    /* Vidro nos cards/páginas */
+    .card, .card-res, .lesson.page, .week.page, .toolbar{
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-bd);
+      backdrop-filter: blur(10px) saturate(120%);
+      -webkit-backdrop-filter: blur(10px) saturate(120%);
+      box-shadow: 0 10px 30px rgba(0,0,0,.15);
+    }
+    /* Toolbar já tinha seu layout — só suavizando */
+    .toolbar{ border-radius:14px }
+
+    /* Melhor contraste de chips por cima do vidro */
+    .chip{
+      background: rgba(255,255,255,.16);
+      border: 1px solid rgba(255,255,255,.25);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    /* Acessibilidade: reduzir movimento */
+    @media (prefers-reduced-motion: reduce){
+      .blob{ display:none }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== FUNDO INTERATIVO ===== -->
+  <div class="bg-gradient" aria-hidden="true"></div>
+  <div class="blob" id="blob" aria-hidden="true"></div>
+
+  <div class="app">
+    <div class="toolbar" style="margin:12px; padding:12px 16px; display:flex; align-items:center; gap:10px;">
+      <h1 style="margin:0">Gerador de Plano de Aula</h1>
+      <span class="chip" id="autosaveStatus">Auto-salvo</span>
+    </div>
+
+    <!-- Configurações iniciais -->
+    <section class="card" aria-labelledby="configTitle" style="margin:12px; padding:16px; border-radius:14px">
+      <h2 id="configTitle">Configurações do Plano</h2>
+      <div class="grid cols-4">
+        <div>
+          <label for="turma">Turma</label>
+          <select id="turma">
+            <option value="">Selecione…</option>
+            <option>1º ano</option>
+            <option>2º ano</option>
+            <option>3º ano</option>
+          </select>
+        </div>
+        <div>
+          <label for="bimestre">Bimestre</label>
+          <select id="bimestre">
+            <option value="">Selecione…</option>
+            <option>1º</option>
+            <option>2º</option>
+            <option>3º</option>
+            <option>4º</option>
+          </select>
+        </div>
+        <div>
+          <label for="materia">Matéria / Componente</label>
+          <input id="materia" placeholder="Ex.: Matemática" />
+        </div>
+        <div>
+          <label for="professor">Professor(a) <span class="muted">(opcional)</span></label>
+          <input id="professor" placeholder="Seu nome" />
+        </div>
+      </div>
+
+      <div class="grid cols-4" style="margin-top:12px">
+        <div>
+          <label for="anoLetivo">Ano letivo</label>
+          <input id="anoLetivo" type="number" placeholder="2025" />
+        </div>
+        <div>
+          <label for="numSemanas">Semanas no bimestre</label>
+          <input id="numSemanas" type="number" min="1" max="12" value="8" />
+        </div>
+        <div>
+          <label for="aulasPorSemana">Aulas por semana</label>
+          <input id="aulasPorSemana" type="number" min="1" max="10" value="2" />
+        </div>
+        <div>
+          <label>&nbsp;</label>
+          <button class="btn ok" id="btnGerar">Gerar/Atualizar Semanas</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resumo -->
+    <section class="card-res" style="margin:14px; padding:16px; border-radius:14px">
+      <h2>Resumo</h2>
+      <div class="grid cols-3">
+        <div><label>Total de semanas</label><div class="chip"><span id="resSemanas">0</span></div></div>
+        <div><label>Aulas/semana</label><div class="chip"><span id="resAulasSemana">0</span></div></div>
+        <div><label>Total de aulas</label><div class="chip"><span id="resTotalAulas">0</span></div></div>
+      </div>
+    </section>
+
+    <!-- Corpo do plano -->
+    <section class="card" style="margin:14px; padding:16px; border-radius:14px">
+      <div class="toolbar" style="justify-content:space-between; padding:12px; border-radius:12px">
+        <h2 style="margin:0">Semanas & Aulas</h2>
+        <div class="no-print" style="display:flex; gap:8px; flex-wrap:wrap; padding: 15px">
+          <button class="btn warn" id="btnExpandir">Expandir tudo</button>
+          <button class="btn ghost" id="btnRecolher">Recolher tudo</button>
+          <button class="btn ok" id="btnSalvar">💾 Salvar</button>
+          <button class="btn" id="btnLimpar">Limpar conteúdo</button>
+          <button class="btn primary" id="btnPDF">Gerar PDF</button>
+        </div>
+      </div>
+
+      <div id="weeksContainer" class="grid" style="gap:16px"></div>
+    </section>
+
+    <footer class="muted" style="margin:12px 0 24px;text-align:center">
+      <small>Plano de Aula • Gera PDF via impressão do navegador. Dados são salvos automaticamente no dispositivo (localStorage).</small>
+    </footer>
+  </div>
+
+  <template id="lessonTemplate">
+    <div class="lesson page" style="padding:16px; border-radius:14px">
+      <h3></h3>
+      <!-- Primeira linha: Data e Forma de ensinar (pequenos) -->
+      <div class="grid cols-2" style="margin-bottom:10px">
+        <div>
+          <label>Data da aula</label>
+          <input type="date" class="dataAula" />
+        </div>
+        <div>
+          <label>Forma de ensinar</label>
+          <select class="metodo">
+            <option value="">Selecione…</option>
+            <option>Aula expositiva</option>
+            <option>Atividade prática</option>
+            <option>Estudo dirigido</option>
+            <option>Discussão em grupo</option>
+            <option>Laboratório</option>
+            <option>Resolução de problemas</option>
+            <option>Projeto</option>
+            <option>Apresentação de Slides</option>
+            <option>Avaliação formativa</option>
+          </select>
+        </div>
+      </div>
+      <!-- Segunda linha: Conteúdo e Recursos (grandes) -->
+      <div class="grid cols-2" style="margin-bottom:10px">
+        <div>
+          <label>Conteúdo da aula</label>
+          <textarea class="conteudoAula" placeholder="Ex.: Equações do 2º grau — parte 1" rows="2"></textarea>
+        </div>
+        <div>
+          <label>Recursos</label>
+          <textarea class="recursos" placeholder="Ex.: quadro, projetor, simulador PhET, folhas…" rows="2"></textarea>
+        </div>
+      </div>
+      <!-- Terceira linha: Objetivos (grande, linha inteira) -->
+      <div style="margin-bottom:10px">
+        <label>Objetivos</label>
+        <textarea class="objetivos" placeholder="Ex.: Resolver problemas, interpretar raízes, compreender conceitos fundamentais…" rows="3"></textarea>
+      </div>
+    </div>
+  </template>
+
+  <template id="weekTemplate">
+    <div class="week page" style="padding:16px; border-radius:14px">
+      <div class="head" style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px">
+        <div>
+          <h3 style="margin:0">Semana <span class="wIndex"></span></h3>
+          <div class="muted" style="font-size:.9rem">Conteúdo geral da semana</div>
+        </div>
+        <div class="week-actions no-print">
+          <button class="btn ghost btnDuplicar">Duplicar</button>
+          <button class="btn ghost btnRemover">Excluir</button>
+        </div>
+      </div>
+      <textarea class="conteudoSemana" placeholder="Ex.: Funções, problemas contextualizados, revisão."></textarea>
+      <div class="lessons" style="margin-top:12px; display:grid; gap:12px"></div>
+    </div>
+  </template>
+
+  <!-- ===== SCRIPT DO FUNDO INTERATIVO ===== -->
+  <script>
+    (() => {
+      const blob = document.getElementById('blob');
+      let x = innerWidth * 0.7, y = innerHeight * 0.3; // posição inicial
+      let tx = x, ty = y;                               // alvo do cursor
+
+      function loop(){
+        // easing suave (0.12 = mais “mole”; aumente p/ seguir mais rápido)
+        x += (tx - x) * 0.2;
+        y += (ty - y) * 0.2;
+        blob.style.transform = `translate(${x}px, ${y}px) scale(0.05)`;
+        requestAnimationFrame(loop);
+      }
+
+      addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
+      addEventListener('touchmove', e => {
+        const t = e.touches[0]; tx = t.clientX; ty = t.clientY;
+      }, {passive:true});
+
+      // Redimensionou? reposiciona alvo pra centro
+      addEventListener('resize', () => { tx = innerWidth/2; ty = innerHeight/2; });
+
+      loop();
+    })();
+  </script>
+</body>
+</html>
