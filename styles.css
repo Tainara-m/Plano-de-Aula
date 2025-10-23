@@ -128,23 +128,6 @@
 
     .grid.cols-3{
         grid-template-columns:repeat(3,minmax(0,1fr));
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 10px;
-        text-align: center;
-    }
-
-    .grid.cols-4{
-        grid-template-columns:repeat(4,minmax(0,1fr));
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 10px;
-        text-align: center;
-        padding: 10px;
     }
 
     .grid.cols-4{
@@ -333,5 +316,374 @@
         font-weight: 500;
         background: rgba(59, 130, 246, 0.05);
         border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+
+    /* RESPONSIVIDADE TOTAL - MOBILE FIRST */
+    
+    /* Extra Small devices (portrait phones, menos de 576px) */
+    @media (max-width: 575.98px) {
+        .app {
+            max-width: 100%;
+            padding: 12px 8px;
+            margin: 0;
+        }
+
+        /* Toolbar responsivo */
+        .toolbar {
+            flex-direction: column;
+            gap: 8px;
+            padding: 0;
+        }
+
+        .toolbar .btn {
+            width: 100%;
+            text-align: center;
+            padding: 12px 16px;
+            font-size: 1rem;
+        }
+
+        /* Grid responsivo - sempre 1 coluna em mobile */
+        .grid.cols-2,
+        .grid.cols-3,
+        .grid.cols-4 {
+            grid-template-columns: 1fr !important;
+            display: grid !important;
+        }
+
+        /* Cards responsivos */
+        .card,
+        .card-res {
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+
+        /* Semanas responsivas */
+        .week {
+            padding: 8px;
+            margin-bottom: 16px;
+        }
+
+        .week > .head {
+            flex-direction: column;
+            gap: 8px;
+            align-items: stretch;
+        }
+
+        .week-actions {
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .week-actions .btn {
+            width: 100%;
+        }
+
+        /* Aulas responsivas */
+        .lesson {
+            padding: 8px;
+            margin-bottom: 12px;
+        }
+
+        .lesson h3 {
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        /* Formulários responsivos */
+        input,
+        select,
+        textarea {
+            padding: 12px 10px;
+            font-size: 16px; /* Evita zoom no iOS */
+            border-radius: 8px;
+        }
+
+        textarea {
+            min-height: 60px;
+        }
+
+        /* Split layout vira coluna única */
+        .split {
+            grid-template-columns: 1fr;
+        }
+
+        /* Títulos menores */
+        h1 {
+            font-size: 1.5rem;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            line-height: 1.3;
+        }
+
+        h3 {
+            font-size: 1rem;
+        }
+
+        /* Chips menores */
+        .chip {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+        }
+    }
+
+    /* Small devices (landscape phones, 576px and up) */
+    @media (min-width: 576px) and (max-width: 767.98px) {
+        .app {
+            max-width: 540px;
+            padding: 16px;
+        }
+
+        .toolbar {
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .toolbar .btn {
+            flex: 0 1 calc(50% - 6px);
+            min-width: 120px;
+        }
+
+        /* Grid - máximo 2 colunas */
+        .grid.cols-3,
+        .grid.cols-4 {
+            grid-template-columns: repeat(2, 1fr) !important;
+            display: grid !important;
+        }
+
+        .week > .head {
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .week-actions {
+            flex-direction: row;
+        }
+    }
+
+    /* Medium devices (tablets, 768px and up) */
+    @media (min-width: 768px) and (max-width: 991.98px) {
+        .app {
+            max-width: 720px;
+            padding: 20px;
+        }
+
+        .toolbar .btn {
+            flex: 0 1 auto;
+            min-width: 140px;
+        }
+
+        /* Grid - máximo 3 colunas */
+        .grid.cols-4 {
+            grid-template-columns: repeat(3, 1fr) !important;
+            display: grid !important;
+        }
+
+        /* Formulários com melhor espaçamento */
+        input,
+        select,
+        textarea {
+            padding: 10px 12px;
+        }
+    }
+
+    /* Large devices (desktops, 992px and up) */
+    @media (min-width: 992px) and (max-width: 1199.98px) {
+        .app {
+            max-width: 960px;
+            padding: 24px;
+        }
+
+        /* Mantém layouts originais mas com melhor espaçamento */
+        .grid.cols-4 {
+            display: grid !important;
+            grid-template-columns: repeat(4, 1fr) !important;
+        }
+    }
+
+    /* Extra large devices (large desktops, 1200px and up) */
+    @media (min-width: 1200px) {
+        .app {
+            max-width: 1140px;
+        }
+
+        /* Layout otimizado para telas grandes */
+        .toolbar {
+            justify-content: flex-start;
+        }
+
+        .card,
+        .card-res {
+            padding: 20px;
+        }
+
+        .week {
+            padding: 16px;
+        }
+
+        .lesson {
+            padding: 16px;
+        }
+    }
+
+    /* Orientação landscape em mobile */
+    @media (max-width: 767.98px) and (orientation: landscape) {
+        .toolbar .btn {
+            flex: 0 1 calc(25% - 6px);
+            min-width: 100px;
+            padding: 8px 12px;
+            font-size: 0.9rem;
+        }
+
+        .grid.cols-2 {
+            grid-template-columns: repeat(2, 1fr) !important;
+        }
+
+        .app {
+            padding: 8px 12px;
+        }
+    }
+
+    /* Melhorias de touch para dispositivos móveis */
+    @media (max-width: 991.98px) {
+        /* Aumenta área de toque */
+        .btn {
+            min-height: 44px;
+            padding: 12px 16px;
+        }
+
+        .lesson h3 {
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+        }
+
+        /* Melhora legibilidade */
+        body {
+            line-height: 1.6;
+        }
+
+        /* Otimiza espaçamento */
+        .grid {
+            gap: 8px;
+        }
+
+        .week {
+            margin-bottom: 12px;
+        }
+
+        .lesson {
+            margin-bottom: 8px;
+        }
+    }
+
+    /* Print responsivo */
+    @media print {
+        .app {
+            max-width: none !important;
+            padding: 0 !important;
+        }
+
+        .grid.cols-2,
+        .grid.cols-3,
+        .grid.cols-4 {
+            display: grid !important;
+        }
+
+        /* Força layouts adequados para impressão */
+        .grid.cols-3,
+        .grid.cols-4 {
+            grid-template-columns: repeat(2, 1fr) !important;
+        }
+    }
+
+    /* Estados de foco aprimorados para acessibilidade */
+    @media (prefers-reduced-motion: no-preference) {
+        input:focus,
+        select:focus,
+        textarea:focus,
+        .btn:focus {
+            transition: all 0.2s ease;
+            outline: 2px solid #3b82f6;
+            outline-offset: 2px;
+        }
+    }
+
+    /* Modo escuro responsivo (se o sistema preferir) */
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --panel: #0f172a99;
+            --border: #334155;
+        }
+    }
+
+    /* Otimizações finais para mobile */
+    @media (max-width: 767.98px) {
+        /* Previne zoom horizontal indesejado */
+        html {
+            overflow-x: hidden;
+        }
+
+        /* Melhora performance de scroll */
+        body {
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Otimiza seleção de texto */
+        input, textarea {
+            -webkit-appearance: none;
+            appearance: none;
+            -webkit-border-radius: 8px;
+            border-radius: 8px;
+        }
+
+        /* Remove outline padrão e adiciona um melhor */
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        /* Melhora experiência de toque */
+        .btn,
+        .lesson h3,
+        button {
+            -webkit-tap-highlight-color: rgba(59, 130, 246, 0.2);
+        }
+    }
+
+    /* Correção para Safari iOS */
+    @supports (-webkit-touch-callout: none) {
+        input[type="text"],
+        input[type="number"],
+        textarea,
+        select {
+            -webkit-appearance: none;
+            appearance: none;
+            border-radius: 8px;
+        }
+    }
+
+    /* Melhoria para dispositivos com hover limitado (touch) */
+    @media (hover: none) and (pointer: coarse) {
+        .btn:hover {
+            background: #202f5f; /* Remove efeito hover em touch */
+        }
+        
+        .btn.primary:hover {
+            filter: none; /* Remove efeito hover em touch */
+        }
+        
+        .lesson h3:hover {
+            color: inherit; /* Remove efeito hover em touch */
+        }
     }
 
