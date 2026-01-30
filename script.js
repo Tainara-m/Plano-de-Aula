@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const els = {
       turma: document.getElementById('turma'),
-      bimestre: document.getElementById('bimestre'),
+      trimestre: document.getElementById('trimestre'),
       materia: document.getElementById('materia'),
       professor: document.getElementById('professor'),
       anoLetivo: document.getElementById('anoLetivo'),
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }));
       return {
         turma: els.turma.value,
-        bimestre: els.bimestre.value,
+        trimestre: els.trimestre.value,
         materia: els.materia.value,
         professor: els.professor.value,
         anoLetivo: els.anoLetivo.value,
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function applyState(state){
       els.turma.value = state.turma || '';
-      els.bimestre.value = state.bimestre || '';
+      els.trimestre.value = state.trimestre || '';
       els.materia.value = state.materia || '';
       els.professor.value = state.professor || '';
       els.anoLetivo.value = state.anoLetivo || '';
@@ -390,7 +390,7 @@ document.addEventListener('DOMContentLoaded', function() {
     els.btnLimpar.addEventListener('click', ()=>{
       if(confirm('Limpar todos os campos do plano?')){
         localStorage.removeItem(STORAGE_KEY);
-        applyState({ turma:'', bimestre:'', materia:'', professor:'', anoLetivo:'', numSemanas:1, aulasPorSemana:2, weeks:[] });
+        applyState({ turma:'', trimestre:'', materia:'', professor:'', anoLetivo:'', numSemanas:1, aulasPorSemana:2, weeks:[] });
       }
     });
 
@@ -502,7 +502,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Informações do cabeçalho - apenas se preenchidas
       if (state.materia) content += `<div class="info-item"><strong>Matéria:</strong> ${escapeHtml(state.materia)}</div>`;
       if (state.turma) content += `<div class="info-item"><strong>Turma:</strong> ${escapeHtml(state.turma)}</div>`;
-      if (state.bimestre) content += `<div class="info-item"><strong>Bimestre:</strong> ${escapeHtml(state.bimestre)}</div>`;
+      if (state.trimestre) content += `<div class="info-item"><strong>Bimestre:</strong> ${escapeHtml(state.trimestre)}</div>`;
       if (state.professor) content += `<div class="info-item"><strong>Professor(a):</strong> ${escapeHtml(state.professor)}</div>`;
       if (state.anoLetivo) content += `<div class="info-item"><strong>Ano Letivo:</strong> ${escapeHtml(state.anoLetivo)}</div>`;
       if (state.aulasPorSemana) content += `<div class="info-item"><strong>Aulas por Semana:</strong> ${state.aulasPorSemana}</div>`;
@@ -626,7 +626,7 @@ document.addEventListener('DOMContentLoaded', function() {
       header.innerHTML = `
         <div style="display:flex;gap:16px;flex-wrap:wrap;font-size:14px">
           <div><strong>Turma:</strong> ${escapeHtml(els.turma.value||'-')}</div>
-          <div><strong>Bimestre:</strong> ${escapeHtml(els.bimestre.value||'-')}</div>
+          <div><strong>Bimestre:</strong> ${escapeHtml(els.trimestre.value||'-')}</div>
           <div><strong>Matéria:</strong> ${escapeHtml(els.materia.value||'-')}</div>
           <div><strong>Professor(a):</strong> ${escapeHtml(els.professor.value||'-')}</div>
           <div><strong>Ano:</strong> ${escapeHtml(els.anoLetivo.value||'-')}</div>
@@ -698,7 +698,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // monitorar alterações de campos principais
       ['change','input','blur'].forEach(ev=>{
-        [els.turma, els.bimestre, els.materia, els.professor, els.anoLetivo, els.numSemanas, els.aulasPorSemana]
+        [els.turma, els.trimestre, els.materia, els.professor, els.anoLetivo, els.numSemanas, els.aulasPorSemana]
           .forEach(el=> {
             el.addEventListener(ev, autoSave);
             // Para campos de texto, adiciona salvamento após parar de digitar
