@@ -1,112 +1,155 @@
-# 📚 Plano de Aula Interativo
+# 📚 Gerador de Plano de Aula Interativo
 
-> Organização, clareza e praticidade para o planejamento pedagógico.
+Uma aplicação web desenvolvida para facilitar a organização do planejamento pedagógico, permitindo que professores estruturem suas aulas de maneira prática, dinâmica e organizada.
 
-Uma aplicação web desenvolvida para auxiliar na criação e organização de planos de aula, com foco em usabilidade, estrutura lógica e visual limpo.
+O sistema possibilita configurar informações da turma, disciplina e período letivo, gerar semanas e aulas automaticamente, registrar conteúdos e objetivos de aprendizagem e acompanhar todo o planejamento em uma única interface.
 
----
+## 🌐 Acesse o projeto
 
-## ✨ Sobre o Projeto
+**[Abrir Gerador de Plano de Aula](https://tainara-m.github.io/Plano-de-Aula/)**
 
-O **Plano de Aula Interativo** é uma ferramenta digital pensada para facilitar o dia a dia de professores, permitindo estruturar conteúdos de forma clara e organizada.
+## 💡 Sobre o projeto
 
-O projeto combina:
-- 🧠 Organização pedagógica
-- 📋 Estrutura lógica de planejamento
-- 💻 Interface simples e funcional
+O **Gerador de Plano de Aula Interativo** foi desenvolvido como projeto de estudo e portfólio, com a proposta de utilizar a programação para solucionar uma necessidade presente na rotina docente: organizar o planejamento das aulas.
 
----
+A aplicação oferece uma estrutura dinâmica na qual o professor pode configurar o período de planejamento e preencher as informações de cada aula, mantendo os dados salvos no próprio navegador.
 
-## 🎯 Objetivo
+O desenvolvimento contou com o auxílio do **ChatGPT**, utilizado como ferramenta de apoio na implementação de funcionalidades em JavaScript, organização do código e melhorias de responsividade.
 
-- Facilitar a criação de planos de aula
-- Melhorar a organização de conteúdos pedagógicos
-- Oferecer uma experiência prática e intuitiva
-- Simular uma aplicação útil no contexto educacional real
+## ✨ Funcionalidades
 
----
+### ⚙️ Configuração do planejamento
 
-## 🧭 Funcionalidades
+- Seleção da turma: 1º, 2º ou 3º ano;
+- Seleção do trimestre;
+- Identificação da disciplina;
+- Campo para nome do professor;
+- Definição do ano letivo;
+- Configuração da quantidade de semanas;
+- Definição da quantidade de aulas por semana.
 
-- ✏️ Criação de plano de aula estruturado
-- 🗂️ Organização por seções (tema, objetivos, conteúdos, etc.)
-- 💾 Persistência de dados (quando aplicável)
-- 📱 Layout responsivo
-- 🖱️ Interface simples e de fácil navegação
+### 📅 Organização das semanas e aulas
 
----
+- Geração dinâmica da estrutura de planejamento;
+- Organização das aulas por semana;
+- Registro da data de cada aula;
+- Seleção da metodologia de ensino;
+- Registro do conteúdo trabalhado;
+- Definição dos recursos didáticos;
+- Registro dos objetivos de aprendizagem;
+- Opções para expandir ou recolher as aulas;
+- Possibilidade de duplicar e excluir semanas.
 
-## 🧱 Estrutura do Plano
+### 💾 Salvamento de informações
 
-O sistema permite organizar o plano de aula com base em elementos essenciais:
+- Salvamento automático dos dados;
+- Salvamento manual pelo botão disponível na interface;
+- Atalho de teclado `Ctrl + S`;
+- Recuperação das informações ao abrir novamente a aplicação no mesmo navegador;
+- Indicador visual do estado do salvamento;
+- Opção para limpar o conteúdo mediante confirmação.
 
-- 📌 Tema da aula  
-- 🎯 Objetivos  
-- 📚 Conteúdo  
-- 🛠️ Metodologia  
-- ⏱️ Tempo estimado  
-- 📝 Avaliação  
+Os dados são armazenados localmente por meio do `localStorage` do navegador.
 
----
+### 📄 Geração de PDF
 
-## 🎨 Interface
+- Geração de uma versão organizada do planejamento;
+- Abertura de uma página própria para impressão;
+- Formatação específica para impressão;
+- Possibilidade de salvar o planejamento em PDF utilizando a opção de impressão do navegador.
 
-- Layout limpo e organizado  
-- Uso de espaçamento para melhorar a leitura  
-- Hierarquia visual bem definida  
-- Foco em produtividade (sem distrações visuais)
+### 🎨 Interface e experiência de uso
 
----
+- Layout responsivo;
+- Design com efeito glassmorphism;
+- Fundo com animação interativa;
+- Elementos visuais personalizados;
+- Fonte personalizada;
+- Suporte à preferência de redução de movimento do dispositivo.
 
-## 💡 Experiência do Usuário
+## 🛠️ Tecnologias utilizadas
 
-- Navegação intuitiva  
-- Estrutura clara e objetiva  
-- Facilidade no preenchimento das informações  
-- Acesso rápido aos campos principais  
+| Tecnologia | Aplicação no projeto |
+|---|---|
+| HTML5 | Estrutura da aplicação e formulários |
+| CSS3 | Estilização, responsividade e efeitos visuais |
+| JavaScript | Lógica, interatividade e manipulação dinâmica dos elementos |
+| LocalStorage | Armazenamento local dos planejamentos |
+| GitHub Pages | Hospedagem da aplicação |
 
----
+O projeto utiliza JavaScript puro (*Vanilla JavaScript*), sem necessidade de frameworks ou bibliotecas externas para executar suas funcionalidades principais.
 
-## 🧩 Diferenciais
+## 📁 Estrutura do projeto
 
-✔️ Aplicação com utilidade prática real  
-✔️ Estrutura pedagógica consistente  
-✔️ Interface focada em produtividade  
-✔️ Projeto alinhado ao contexto educacional  
+```text
+Plano-de-Aula/
+│
+├── index.html
+├── styles.css
+├── script.js
+├── README.md
+│
+└── assets/
+    ├── ChettaVissto.ttf
+    ├── android-chrome-192x192.png
+    ├── android-chrome-512x512.png
+    ├── apple-touch-icon.png
+    ├── favicon-16x16.png
+    ├── favicon-32x32.png
+    ├── favicon.ico
+    └── site.webmanifest
+```
 
----
+## 🚀 Como executar
 
-## 🚀 Tecnologias Utilizadas
+A aplicação é uma página web estática e não exige instalação de dependências.
 
-- HTML5  
-- CSS3  
-- JavaScript  
+1. Faça o download ou clone o repositório.
+2. Abra a pasta do projeto.
+3. Execute o arquivo `index.html` em um navegador atualizado.
 
----
+Para clonar o repositório:
 
-## 🌐 Acesse o Projeto
+```bash
+git clone https://github.com/Tainara-m/Plano-de-Aula.git
+```
 
-🔗 https://tainara-m.github.io/Plano-de-Aula/
+Também é possível utilizar diretamente a versão publicada no GitHub Pages.
 
----
+## 🧠 Conceitos de programação aplicados
 
-## 📌 Possíveis Melhorias
+Durante o desenvolvimento, foram trabalhados conceitos importantes de desenvolvimento web:
 
-- Exportação do plano em PDF  
-- Sistema de salvamento com múltiplos planos  
-- Integração com banco de dados  
-- Personalização de templates  
-- Modo escuro  
+- Estruturação de páginas com HTML5;
+- Estilização e responsividade com CSS3;
+- Manipulação do DOM;
+- Criação e reutilização de elementos HTML com templates;
+- Manipulação de eventos;
+- Organização de funções JavaScript;
+- Gerenciamento de estado da aplicação;
+- Armazenamento de dados com LocalStorage;
+- Salvamento automático com controle de tempo (*debounce*);
+- Manipulação e geração de conteúdo para impressão;
+- Organização e separação de responsabilidades entre arquivos.
 
----
+## 🔮 Possíveis melhorias futuras
 
-## 👩‍💻 Autoria
+- Sistema para armazenar vários planejamentos independentes;
+- Integração com banco de dados;
+- Personalização de modelos de planejamento;
+- Alternância entre temas claro e escuro;
+- Aprimoramentos na exportação dos documentos.
 
-Desenvolvido por você 📚  com uso de Inteligência Artificial para implementação de recursos de JavaScript e aperfeiçoamento de responsividade.
-Projeto voltado para estudo e portfólio.
+## 👩‍💻 Autoria e desenvolvimento
 
----
+**Desenvolvido por Tainara Martins.**
+
+O projeto foi desenvolvido com auxílio do **ChatGPT**, utilizado como ferramenta de apoio na implementação de funcionalidades JavaScript, organização da aplicação e melhorias de responsividade.
+
+A utilização da inteligência artificial fez parte do processo de desenvolvimento, com revisão e adaptação do resultado ao objetivo proposto.
 
 ## 📄 Licença
 
-Este projeto é livre para fins educacionais e de inspiração.
+Este projeto disponibiliza seu código-fonte sob a licença MIT, respeitando os direitos e as licenças aplicáveis aos recursos de terceiros utilizados.
+
+Consulte o arquivo `LICENSE` para conhecer os termos de utilização.
